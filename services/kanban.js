@@ -1735,7 +1735,7 @@ module.exports = {
             refAddress: refAddress,
             image: image,
             hideOnStore: hideOnStore,
-            txhex: '',
+            //txhex: '',
             notify_url: notify_url
         }; 
           
@@ -1752,17 +1752,43 @@ module.exports = {
 
         const txhex = await module.exports.getDeploySmartContractHex(privateKey, feeCharger.ABI, feeCharger.Bytecode, args);
 
-        data.txhex = txhex;
-        const url = 'https://' + (secret.production ? 'api' : 'test') + '.blockchaingate.com/v2/' + 'stores/Create2';
+        //data.txhex = txhex;
+        //console.log('data.json=', JSON.stringify(data));
+        const url = 'https://' + (secret.production ? 'api' : 'test') + '.blockchaingate.com/v2/' + 'stores/Create';
 
         let resp = '';
         try {
-            const response = await axios.post(url, data);
-            resp = response.data;
+            console.log('data=', data);
+            console.log('url=', url);
+            //const response = await axios.post(url, data);
+            resp = await module.exports.sendRawSignedTransactionPromise(txhex);
+            console.log('resp===', resp);
+
+            if(resp && resp.ok && resp._body && resp._body.status == '0x1') { 
+                const body = resp._body;
+  
+                const txid = body.transactionHash;
+
+                const receipt = await module.exports.getKanbanTransactionReceipt(txid);
+                console.log('receipt===', receipt);
+                if(receipt  && receipt.contractAddress) {
+
+                    const feeChargerSmartContractAddress = receipt.contractAddress;
+                    data.feeChargerSmartContractAddress = feeChargerSmartContractAddress;
+                    data.status = 0;
+                    
+                    const sig = module.exports.signJsonData(privateKey, data);
+                    data['sig'] = sig.signature; 
+                    console.log('data111111===', data);
+                    console.log('json=', JSON.stringify(data));
+                    response = await axios.post(url, data);
+                    resp = response.data;
+                }
+            }
 
         }catch (err) {
         }
-
+        
 
         return resp;
         /*
@@ -2115,7 +2141,7 @@ module.exports = {
             ETH.hardfork,
         );
     
-        const tx = new service_1.default(txObject, { common: customCommon });
+        const tx = new EthereumTx(txObject, { common: customCommon });
 
         tx.sign(privateKey);
         const serializedTx = tx.serialize();
@@ -2175,7 +2201,7 @@ module.exports = {
           },
           config.KANBAN.chain.hardfork,
         );
-        const tx = new service_1.default(txObject, { common: customCommon });
+        const tx = new EthereumTx(txObject, { common: customCommon });
     
         tx.sign(privateKey);
         const serializedTx = tx.serialize();

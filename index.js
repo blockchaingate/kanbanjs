@@ -14,6 +14,7 @@ const main = async function() {
         privateKeyBCH, addressBCH
     } = kanban.getWalletIdentity(mnemonic);
 
+    /*
     const body = {
         currency: "USDT",
         items: [
@@ -61,6 +62,7 @@ const main = async function() {
     //const orderid = order._id;
     const orderid = '620d871b2d08661afbfcaa65';
     const pay1 = await kanban.payOrder(privateKey, address, orderid);
+
     //支付订单
     console.log('pay1=', pay1);
 
@@ -327,7 +329,7 @@ console.log('addressETH==', addressETH);
 
     console.log('nonce=', nonce);
     */
-    /*
+    
     const name = 'store';
     const nameChinese = '中文店铺';
     const addr = '888 sss ave';
@@ -348,29 +350,9 @@ console.log('addressETH==', addressETH);
     const refAddress = '14h3WSyJva6itCpZ7pirXwLpK52Ek3qHGz';
     const image = '';
     const hideOnStore = true;
-    */
-   
-    const name = '测试22';
-    const nameChinese = '测试33';
-    const addr = '山东省青岛市黄岛区薛家岛街道昆泉星港凤海苑';
-    const addrChinese = '山东省青岛市黄岛区薛家岛街道昆泉星港凤海苑';
-    const contactName = '测试';
-    const contactNameChinese = '测试';
-    const phone = null;
-    const fax = '053288888888';
-    const email = '308178561@qq.com';
-    const website = '';
-    const openTime = '';
-    const closeTime = '';
-    const businessContents = 19;
-    const businessContentsChinese = 19;
-    const coin = 'USDT';
-    const giveAwayRate = "13";
-    const taxRate = "13";
-    const image = '';
-    const hideOnStore = true;  
 
 
+/*
     const store = await kanban.getStore(address);
     const resp = await kanban.updateStore( // 修改商店
         privateKey,
@@ -396,31 +378,8 @@ console.log('addressETH==', addressETH);
         hideOnStore
     );
     //console.log('resppp=', resp);
-    /*
-    	"name": "测试",
-	"nameChinese": "测试",
-	"addr": "山东省青岛市黄岛区薛家岛街道昆泉星港凤海苑",
-	"addrChinese": "山东省青岛市黄岛区薛家岛街道昆泉星港凤海苑",
-	"contactName": "测试",
-	"contactNameChinese": "测试",
-	"phone": "13012410050",
-	"fax": "053288888888",
-	"email": "308178561@qq.com",
-	"website": "",
-	"openTime": "",
-	"closeTime": "",
-	"businessContents": 19,
-	"businessContentsChinese": 19,
-	"coin": "USDT",
-	"giveAwayRate": "13",
-	"taxRate": "13",
-	"refAddress": "1HNFSS4TdSNesb4thffndBXPAeUWAyj4HV",
-	"image": "",
-	"hideOnStore": true,
-	"notify_url": "https://7star.xiaomustang.com//api/notice/store_check"
-    */
-
-    /*
+*/
+    
     const notify_url = "https://7star.xiaomustang.com//api/notice/store_check";
     // data: store对象
     const resp = await kanban.createStore( // 生成商店
@@ -456,10 +415,10 @@ console.log('addressETH==', addressETH);
         console.log('resp===', resp);
     }
     
-    const storeId = '61cbeb9e56c2fb67f608194b';
-    const deleted = await kanban.deleteStore(privateKey, storeId);
-    console.log('deleted===', deleted);
-    */
+    //const storeId = '61cbeb9e56c2fb67f608194b';
+    //const deleted = await kanban.deleteStore(privateKey, storeId);
+    //console.log('deleted===', deleted);
+    
     /*
     const status = await kanban.getStoreStatus(address);
     //address: store owner的钱包地址
