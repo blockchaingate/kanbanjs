@@ -1,7 +1,7 @@
 const kanban = require('./services/kanban');
 var secret = require('./services/secret.json');
 const config = require('./services/config');
-
+const exaddr = require('./services/exaddr');
 const main = async function() {
     const mnemonic = "dune stem onion cliff equip seek kiwi salute area elegant atom injury";
     let { 
@@ -13,6 +13,7 @@ const main = async function() {
         privateKeyDOGE, addressDOGE,
         privateKeyBCH, addressBCH
     } = kanban.getWalletIdentity(mnemonic);
+
 
     /*
     const body = {
@@ -352,6 +353,13 @@ console.log('addressETH==', addressETH);
     const hideOnStore = true;
 
 
+    const fabAddress = 'mzUQnX1Bgoy2SrMjfBM33F64g5Mub7avX9';
+    const toKbAddress = exaddr.toKbpayAddress(fabAddress);
+    const amount = 0.1;
+    
+    const resBinPay = await kanban.bindPay(privateKey, address, toKbAddress, coin, amount);
+
+    console.log('resBinPay=', resBinPay);
 /*
     const store = await kanban.getStore(address);
     const resp = await kanban.updateStore( // 修改商店
@@ -379,7 +387,7 @@ console.log('addressETH==', addressETH);
     );
     //console.log('resppp=', resp);
 */
-    
+    /*
     const notify_url = "https://7star.xiaomustang.com//api/notice/store_check";
     // data: store对象
     const resp = await kanban.createStore( // 生成商店
@@ -414,7 +422,7 @@ console.log('addressETH==', addressETH);
     } else {
         console.log('resp===', resp);
     }
-    
+    */
     //const storeId = '61cbeb9e56c2fb67f608194b';
     //const deleted = await kanban.deleteStore(privateKey, storeId);
     //console.log('deleted===', deleted);

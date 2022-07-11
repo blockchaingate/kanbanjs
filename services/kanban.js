@@ -282,7 +282,53 @@ module.exports = {
         }
         return Number(resp);
     },
+    bindPay: async(privateKey, address, toKbAddress, coin, amount) => {
+        const abi = {
+            'constant': false,
+            'inputs': [
+              {
+                'name': '_to',
+                'type': 'address'
+              },
+              {
+                'name': '_coinType',
+                'type': 'uint32'
+              },
+              {
+                'name': '_value',
+                'type': 'uint256'
+              },
+              {
+                "name": "_comment",
+                "type": "bytes32"
+              }
+            ],
+            'name': 'transfer',
+            'outputs': [
+              {
+                'name': 'success',
+                'type': 'bool'
+              }
+            ],
+            'payable': false,
+            'stateMutability': 'nonpayable',
+            'type': 'function'
+        };
 
+        const fabAddress = exaddr.toLegacyAddress(toKbAddress);
+        const addressInKanban = module.exports.fabToExgAddress(fabAddress);
+        const coinType = module.exports.getCoinTypeIdByName(coin);
+        const amountHex = '0x' + new BigNumber(amount).shiftedBy(18).toString(16);
+        const args = [addressInKanban, coinType, amountHex, '0x'];
+        console.log('addressInKanban==', addressInKanban);
+        const abiData = module.exports.getGeneralFunctionABI(abi, args);
+        const coinPoolAddress = await module.exports.getCoinPoolAddress();
+        const txhex = await module.exports.getExecSmartContractHexByData(privateKey, address, coinPoolAddress, abiData);
+        console.log('txhex==', txhex);
+        const res = await module.exports.sendRawSignedTransactionPromise(txhex);
+        return res;
+    },
+    
     postTx: async(coin, txHex) => {
         let txHash = '';
         let errMsg = '';

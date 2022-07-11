@@ -1,3 +1,15 @@
+from a developer's view, I think here are some information I need from the document.
+
+1. create a fab smart contract, if it's for a frc20 token then
+2. add a coin type in kanban
+3. deposit and withdraw with kanban
+4. deploy a smart contract in kanban to interact with my new coin type, 
+this may need the approval from our kanban admin to allow 
+my new smart contract to connect with coinpool
+5. list my new coin in eXchangily(optional)
+
+
+
 379eb862
 1c00000000000000000000000000000000000000000000000000000700030001
 0f7eacf07bb1da6ce24adb275fcd6a42c9e05e43d6b911d15a944ae67e03688e
