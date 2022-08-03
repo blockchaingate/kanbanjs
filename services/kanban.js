@@ -1486,12 +1486,7 @@ module.exports = {
      },
      
      chargeFund: async (privateKey, feeChargerSmartContractAddress, orderId, coin, totalAmount, taxAmount) => {
-         console.log('privateKey=', privateKey);
-         console.log('feeChargerSmartContractAddress=', feeChargerSmartContractAddress);
-         console.log('orderId=', orderId);
-         console.log('coin=', coin);
-         console.log('totalAmount=', totalAmount);
-         console.log('taxAmount=', taxAmount);
+
         const keyPair = Btc.ECPair.fromPrivateKey(privateKey);
 
         const network = secret.production ? Btc.networks.bitcoin : Btc.networks.testnet;
